@@ -1,0 +1,94 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+TestResults/
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+# Uncomment if using package restore
+# !packages/build/
+# !packages/repositories.config
+
+# MSTest test results
+*.trx
+*.coverage
+*.coveragexml
+
+# NCrunch
+*.ncrunch*
+_NCrunch_*
+
+# Resharper
+*.DotSettings.user
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Rider
+.idea/
+
+# CodeRush
+.cr/
+
+# Visual Studio Code
+.vscode/
+
+# Others
+*.dbmdl
+*.pdb
+*.cache
+*.config
+*.vspscc
+*.vssscc
+*.scc
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# IIS Express
+*.vspscc
+*.vssscc
+*.scc
+*.dbmdl
+*.publish.xml
+
+# Web projects
+App_Data/
+*.publishsettings
+
+# Entity Framework
+Migrations/
+
+# StyleCop
+StyleCopReport.xml
+
+# DotCover
+*.dotCover
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider
+.idea/
+*.sln.iml
