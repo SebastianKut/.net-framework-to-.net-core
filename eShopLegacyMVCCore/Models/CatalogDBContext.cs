@@ -6,7 +6,7 @@ namespace eShopLegacyMVC.Models
 {
     public class CatalogDBContext : DbContext
     {
-        public CatalogDBContext() : base("name=CatalogDBContext")
+        public CatalogDBContext(IConfiguration configuration) : base(configuration["ConnectionStrings:CatalogDBContext"])
         {
         }
 

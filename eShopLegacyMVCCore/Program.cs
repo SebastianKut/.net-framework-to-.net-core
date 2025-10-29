@@ -1,10 +1,17 @@
 
+using eShopLegacyMVC.Models;
+using eShopLegacyMVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSystemWebAdapters();
 builder.Services.AddHttpForwarder();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICatalogService, CatalogService>();
+// This db context is added differently as we still using old EF not the EF Core
+builder.Services.AddScoped<CatalogDBContext>();
+builder.Services.AddSingleton<CatalogItemHiLoGenerator>();
 
 var app = builder.Build();
 

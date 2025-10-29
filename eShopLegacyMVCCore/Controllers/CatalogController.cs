@@ -159,8 +159,9 @@ namespace eShopLegacyMVC.Controllers
 
         private void AddUriPlaceHolder(CatalogItem item)
         {
-            // TO DO - un comment when PicController is migrated
-            item.PictureUri = this.Url.RouteUrl(PicController.GetPicRouteName, new { catalogItemId = item.Id }, this.Request.Scheme);
+            // TO DO - uncomment when PicController is migrated
+            //item.PictureUri = this.Url.RouteUrl(PicController.GetPicRouteName, new { catalogItemId = item.Id }, this.Request.Scheme);
+            item.PictureUri = $"/items/{item.Id}/pic";
         }
     }
 }
