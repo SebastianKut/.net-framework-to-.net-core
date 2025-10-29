@@ -23,4 +23,6 @@ app.UseSystemWebAdapters();
 app.MapDefaultControllerRoute();
 app.MapForwarder("/{**catch-all}", app.Configuration["ProxyTo"]).Add(static builder => ((RouteEndpointBuilder)builder).Order = int.MaxValue);
 
+app.MapControllerRoute("Default", "{controller=Catalog}/{action=Index}/{id?}");
+
 app.Run();
