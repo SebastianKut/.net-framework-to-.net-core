@@ -1,9 +1,24 @@
 
 using eShopLegacyMVC.Models;
 using eShopLegacyMVC.Services;
+using eShopLegacy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSystemWebAdapters();
+builder.Services.AddSystemWebAdapters()
+    // we have to add information about what our session object will look like for serialisation purposes
+    .AddJsonSessionSerializer(options =>
+    {
+        options.RegisterKey<string>("MachineName");
+        options.RegisterKey<DateTime>("SessionStartTime");
+        options.RegisterKey<SessionDemoModel>("DemoItem");
+    })
+    .AddRemoteAppClient(options =>
+    {
+        options.RemoteAppUrl = new(builder.Configuration["ProxyTo"]); // same setting as YARP proxy
+        options.ApiKey = builder.Configuration["RemoteAppApiKey"]; // we have to set up api key here for the client and in .net framework app for the server
+    }) // we want to read session from the .net framework app
+    .AddSessionClient();
+
 builder.Services.AddHttpForwarder();
 
 // Add services to the container.
@@ -27,9 +42,11 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseSystemWebAdapters();
 
-app.MapDefaultControllerRoute();
 app.MapForwarder("/{**catch-all}", app.Configuration["ProxyTo"]).Add(static builder => ((RouteEndpointBuilder)builder).Order = int.MaxValue);
 
-app.MapControllerRoute("Default", "{controller=Catalog}/{action=Index}/{id?}");
+app.MapControllerRoute("Default", "{controller=Catalog}/{action=Index}/{id?}")
+    .RequireSystemWebAdapterSession();
+
+app.MapDefaultControllerRoute();
 
 app.Run();

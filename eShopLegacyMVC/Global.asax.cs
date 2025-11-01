@@ -15,6 +15,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using eShopLegacy.Models;
 
 namespace eShopLegacyMVC
 {
@@ -33,6 +34,35 @@ namespace eShopLegacyMVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ConfigDataBase();
+            //Setting up this as a server for the session state so .net core app client can read session from this legacy app
+            //HttpApplicationHost.RegisterHost(configure =>
+            //{
+            //    configure.Services.AddSystemWebAdapters()
+            //    .AddJsonSessionSerializer(options =>
+            //    {
+            //        options.RegisterKey<string>("MachineName");
+            //        options.RegisterKey<DateTime>("SessionStartTime");
+            //        options.RegisterKey<SessionDemoModel>("DemoItem");
+            //    })
+            //    .AddRemoteAppServer(options =>
+            //    {
+            //        options.ApiKey = ConfigurationManager.AppSettings["RemoteAppApiKey"];
+            //    })
+            //    .AddSessionServer();
+            //});
+
+            SystemWebAdapterConfiguration.AddSystemWebAdapters(this)
+                .AddJsonSessionSerializer(options =>
+                {
+                    options.RegisterKey<string>("MachineName");
+                    options.RegisterKey<DateTime>("SessionStartTime");
+                    options.RegisterKey<SessionDemoModel>("DemoItem");
+                })
+                .AddRemoteAppServer(options =>
+                {
+                    options.ApiKey = ConfigurationManager.AppSettings["RemoteAppApiKey"];
+                })
+                .AddSessionServer();
         }
 
         /// <summary>
